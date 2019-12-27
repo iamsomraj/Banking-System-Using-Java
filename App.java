@@ -81,6 +81,7 @@ class Account extends Services {
   }
 
   public void displayDetails() {
+    System.out.println();
     System.out.println("The Account Holder's name : " + this.name);
     System.out.println("The Account Holder's id : " + this.id);
     System.out.println("The Account Holder's balance: " + this.balance);
