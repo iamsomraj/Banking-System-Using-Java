@@ -10,7 +10,11 @@ class Bank {
   String byeMESSAGE = "\nHave a good day!";
 
   String sessionSTART = "\nSession Started!";
-  String sessionCLOSE = "\nSession Closed!";
+  String sessionCLOSE = "\nLogged Out!\nSession Closed!";
+
+  float rate = 10;
+
+  int accountCapacity = 100000;
 
 }
 
@@ -45,7 +49,7 @@ class Services extends Bank {
 
     if (idBalanceMap.containsKey(id)) {
       System.out.println(SUCCESS);
-      System.out.println(getBalance(id));
+      System.out.println("\nAccount Balance of " + id + " : " + getBalance(id));
     } else {
       System.out.println(FAIL);
     }
@@ -95,6 +99,34 @@ class Services extends Bank {
     return false;
   }
 
+  public void displayTotal() {
+    int sum = 150000;
+    for (Map.Entry<Integer, LinkedHashMap<String, Integer>> entry : idBalanceMap.entrySet()) {
+      int id = entry.getKey();
+      sum = sum + getBalance(id);
+    }
+
+    System.out.println("\n\nThe Total Asset is :" + sum);
+
+  }
+
+  public void nextYear() {
+
+    System.out.println("The interest rate is " + rate);
+    System.out.println("Enter the number of years for simulation: ");
+    int time = sc.nextInt();
+    for (Map.Entry<Integer, LinkedHashMap<String, Integer>> entry : idBalanceMap.entrySet()) {
+      int id = entry.getKey();
+      int balance = getBalance(id);
+      String name = getName(id);
+      balance = (int) Math.round(balance * Math.pow((1 + rate), time));
+      updateDetails(name, id, balance);
+    }
+
+    System.out.println("\nSystem has been updated!\n");
+
+  }
+
   public void send(int senderid, int receiverid) {
 
     if (idBalanceMap.containsKey(senderid) && idBalanceMap.containsKey(receiverid)) {
@@ -130,11 +162,15 @@ class Account extends Services {
   int id;
   int balance;
 
+  Account() {
+
+  }
+
   Account(String name, int balance) {
     this.name = name;
-    int integer = (int) Math.round(Math.random() * 100);
+    int integer = (int) Math.round(Math.random() * accountCapacity);
     while (idBalanceMap.containsKey(integer)) {
-      integer = (int) Math.round(Math.random() * 100);
+      integer = (int) Math.round(Math.random() * accountCapacity);
     }
     this.id = integer;
     this.balance = balance;
@@ -182,20 +218,12 @@ public class App {
   }
 
   public void sessionStart() {
-    System.out.println("Enter your name to open account: ");
-    String name = sc.nextLine();
-    System.out.println("Enter the balance you want to deposit: ");
-    int balance = sc.nextInt();
-    Account account = new Account(name, balance);
-    System.out.println("Do you want to go to Banking Services ?");
-    System.out.println("Press 1 to Continue or 2 to Exit!");
-    int choice = sc.nextInt();
-    outer: if (choice == 1) {
+      Account account = new Account();
       System.out.println(account.welcomeMESSAGE);
       System.out.println(account.sessionSTART);
       while (true) {
         System.out.println(
-            "\nEnter Choice:\n1.Display Balance:\n2.Withdraw:\n3.Deposit:\n4.Send:\n5.Create Account:\n6.Display Account Details:\nAny Other Number: Exit");
+            "\nEnter Choice:\n1.Display Balance:\n2.Withdraw:\n3.Deposit:\n4.Send:\n5.Create Account:\n6.Display Account Details:\n7.Display Total Assets:\n8.Go Next Year:\nAny Other Number: Exit");
         int ch = sc.nextInt();
         sc.nextLine();
         int id;
@@ -216,19 +244,28 @@ public class App {
           break;
         case 4:
           int recID;
-          System.out.println("Sender ID:");
+          System.out.println("\nSender ID:");
           id = reEnterId();
-          System.out.println("Receiver ID:");
+          System.out.println("\nReceiver ID:");
           recID = reEnterId();
           account.send(id, recID);
           break;
         case 5:
-          App appNew = new App();
-          appNew.sessionStart();
+          System.out.println("Enter your name to open account: ");
+          String name = sc.nextLine();
+          System.out.println("Enter the balance you want to deposit: ");
+          int balance = sc.nextInt();
+          new Account(name, balance);
           break;
         case 6:
           id = reEnterId();
           account.displayDetails(id);
+          break;
+        case 7:
+          account.displayTotal();
+          break;
+        case 8:
+          account.nextYear();
           break;
         default:
 
@@ -236,13 +273,8 @@ public class App {
           System.out.println(account.sessionCLOSE);
           System.exit(12);
 
-          break outer;
         }
       }
-    }
-
-    System.out.println(account.byeMESSAGE);
-    System.out.println(account.sessionCLOSE);
 
   }
 
