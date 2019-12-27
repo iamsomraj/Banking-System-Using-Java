@@ -59,7 +59,7 @@ class Services extends Bank {
   public void withdrawCash(int id) {
     if (idBalanceMap.containsKey(id)) {
       System.out.println(SUCCESS);
-      System.out.println("\nEnter the amount you want to withdraw:");
+      System.out.println("\nEnter the amount you want to withdraw: ");
       int amount = sc.nextInt();
 
       if (hasBalance(id, amount)) {
@@ -79,7 +79,7 @@ class Services extends Bank {
   public void depositCash(int id) {
     if (idBalanceMap.containsKey(id)) {
       System.out.println(SUCCESS);
-      System.out.println("\nEnter the amount you want to deposit:");
+      System.out.println("\nEnter the amount you want to deposit: ");
       int amount = sc.nextInt();
       int avail = getBalance(id);
       String name = getName(id);
@@ -106,14 +106,14 @@ class Services extends Bank {
       sum = sum + getBalance(id);
     }
 
-    System.out.println("\n\nThe Total Asset is :" + sum);
+    System.out.println("\n\nThe Total Asset is : " + sum);
 
   }
 
   public void nextYear() {
 
-    System.out.println("The interest rate is " + rate);
-    System.out.println("Enter the number of years for simulation: ");
+    System.out.println("The interest rate is : " + rate);
+    System.out.println("Enter the number of years for simulation : ");
     int time = sc.nextInt();
     for (Map.Entry<Integer, LinkedHashMap<String, Integer>> entry : idBalanceMap.entrySet()) {
       int id = entry.getKey();
@@ -131,7 +131,7 @@ class Services extends Bank {
 
     if (idBalanceMap.containsKey(senderid) && idBalanceMap.containsKey(receiverid)) {
       System.out.println(SUCCESS);
-      System.out.println("\nEnter the amount you want to send:");
+      System.out.println("\nEnter the amount you want to send : ");
       int amount = sc.nextInt();
       if (hasBalance(senderid, amount)) {
         int senderBalance = getBalance(senderid);
@@ -187,7 +187,7 @@ class Account extends Services {
   public void display(int id, String name, int balance) {
     System.out.println("The Account Holder's name : " + name);
     System.out.println("The Account Holder's id : " + id);
-    System.out.println("The Account Holder's balance: " + balance);
+    System.out.println("The Account Holder's balance : " + balance);
   }
 
   public void displayDetails() {
@@ -212,7 +212,7 @@ public class App {
   Scanner sc = new Scanner(System.in);
 
   public int reEnterId() {
-    System.out.println("\nEnter account id for verification and authentication: ");
+    System.out.println("\nEnter account id for verification and authentication : ");
     int id = sc.nextInt();
     return id;
   }
@@ -244,16 +244,16 @@ public class App {
           break;
         case 4:
           int recID;
-          System.out.println("\nSender ID:");
+          System.out.println("\nSender ID : ");
           id = reEnterId();
-          System.out.println("\nReceiver ID:");
+          System.out.println("\nReceiver ID :");
           recID = reEnterId();
           account.send(id, recID);
           break;
         case 5:
-          System.out.println("Enter your name to open account: ");
+          System.out.println("Enter your name to open account : ");
           String name = sc.nextLine();
-          System.out.println("Enter the balance you want to deposit: ");
+          System.out.println("Enter the balance you want to deposit : ");
           int balance = sc.nextInt();
           new Account(name, balance);
           break;
