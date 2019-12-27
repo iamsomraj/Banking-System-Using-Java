@@ -53,6 +53,14 @@ class Services extends Bank {
 
   }
 
+  public void displayDetails(int id) {
+    if (idBalanceMap.containsKey(id)) {
+      System.out.println(SUCCESS);
+    } else {
+      System.out.println(FAIL);
+    }
+  }
+
 }
 
 class Account extends Services {
@@ -88,7 +96,6 @@ class Account extends Services {
 
 public class App {
 
-
   public int reEnterId() {
     System.out.println("\nRe enter your id to confirm: ");
     Scanner sc = new Scanner(System.in);
@@ -111,7 +118,7 @@ public class App {
       System.out.println(account.sessionSTART);
       while (true) {
         System.out.println(
-            "\nEnter Choice:\n1.Display Balance:\n2.Withdraw:\n3.Deposit:\n4.Send:\n5.Create Account:\n6.Exit");
+            "\nEnter Choice:\n1.Display Balance:\n2.Withdraw:\n3.Deposit:\n4.Send:\n5.Create Account:\n6.Display Account Details:\nAny Other Number: Exit");
         int ch = sc.nextInt();
         sc.nextLine();
         int id;
@@ -143,10 +150,15 @@ public class App {
           appNew.sessionStart();
           break;
         case 6:
-          System.exit(12);;
+          id = reEnterId();
+          account.displayDetails(id);
+          break;
         default:
-          choice = 5;
-          System.out.println(account.FAIL);
+
+          System.out.println(account.byeMESSAGE);
+          System.out.println(account.sessionCLOSE);
+          System.exit(12);
+          ;
           break outer;
         }
       }
@@ -154,7 +166,6 @@ public class App {
 
     System.out.println(account.byeMESSAGE);
     System.out.println(account.sessionCLOSE);
-
 
   }
 
