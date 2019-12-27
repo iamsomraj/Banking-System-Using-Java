@@ -12,7 +12,7 @@ class Bank {
   String sessionSTART = "\nSession Started!";
   String sessionCLOSE = "\nLogged Out!\nSession Closed!";
 
-  float rate = 3.5;
+  float rate = 3.5f;
   int sum = 100000;
 
   int accountCapacity = 100000;
