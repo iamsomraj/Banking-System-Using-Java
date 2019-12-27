@@ -12,7 +12,8 @@ class Bank {
   String sessionSTART = "\nSession Started!";
   String sessionCLOSE = "\nLogged Out!\nSession Closed!";
 
-  float rate = 10;
+  float rate = 3.5;
+  int sum = 100000;
 
   int accountCapacity = 100000;
 
@@ -100,7 +101,7 @@ class Services extends Bank {
   }
 
   public void displayTotal() {
-    int sum = 150000;
+    
     for (Map.Entry<Integer, LinkedHashMap<String, Integer>> entry : idBalanceMap.entrySet()) {
       int id = entry.getKey();
       sum = sum + getBalance(id);
@@ -119,7 +120,7 @@ class Services extends Bank {
       int id = entry.getKey();
       int balance = getBalance(id);
       String name = getName(id);
-      balance = (int) Math.round(balance * Math.pow((1 + rate), time));
+      balance = (int) Math.round( balance * Math.pow((1 + rate), time) ); // compound interest
       updateDetails(name, id, balance);
     }
 
