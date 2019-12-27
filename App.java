@@ -53,8 +53,6 @@ class Services extends Bank {
 
   }
 
-
-
 }
 
 class Account extends Services {
@@ -162,7 +160,7 @@ public class App {
           System.out.println(account.byeMESSAGE);
           System.out.println(account.sessionCLOSE);
           System.exit(12);
-          ;
+
           break outer;
         }
       }
