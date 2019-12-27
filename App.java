@@ -53,13 +53,7 @@ class Services extends Bank {
 
   }
 
-  public void displayDetails(int id) {
-    if (idBalanceMap.containsKey(id)) {
-      System.out.println(SUCCESS);
-    } else {
-      System.out.println(FAIL);
-    }
-  }
+
 
 }
 
@@ -90,6 +84,15 @@ class Account extends Services {
     System.out.println("The Account Holder's name : " + this.name);
     System.out.println("The Account Holder's id : " + this.id);
     System.out.println("The Account Holder's balance: " + this.balance);
+  }
+
+  public void displayDetails(int id) {
+    if (idBalanceMap.containsKey(id)) {
+      System.out.println(SUCCESS);
+      displayDetails();
+    } else {
+      System.out.println(FAIL);
+    }
   }
 
 }
