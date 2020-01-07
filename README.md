@@ -4,7 +4,7 @@ Banking System Using Java is a simple and basic banking system which has basic f
 
 ## Run Online
 
-[![Run on Repl.it](https://repl.it/badge/github/iamsomraj/Banking-System-Using-Java)](https://repl.it/github/iamsomraj/Banking-System-Using-Java)
+[![Run on Repl.it](https://repl.it/badge/github/iamsomraj/Banking-System-Using-Java)](https://banking-system-using-java.iamsomraj.repl.run/)
 
 ## Image
 
