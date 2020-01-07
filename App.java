@@ -1,21 +1,22 @@
 import java.util.*;
 
 class Bank {
+
+  float rate = 3.5f;
+  int sum = 100000;
+  int accountCapacity = 100000;
+
   static LinkedHashMap<Integer, LinkedHashMap<String, Integer>> idBalanceMap = new LinkedHashMap<>();
 
   String SUCCESS = "\nThe request is succesful!";
   String FAIL = "\nThe request is not succesful!";
 
-  String welcomeMESSAGE = "\nWelcome to Somraj Payments Bank!";
+  String welcomeMESSAGE = "\nWelcome to Somraj Payments Bank!\nCurrent Interest Rate : "
+      + String.format("%.2f", this.rate) + "\n";
   String byeMESSAGE = "\nHave a good day!";
 
   String sessionSTART = "\nSession Started!";
   String sessionCLOSE = "\nLogged Out!\nSession Closed!";
-
-  float rate = 3.5f;
-  int sum = 100000;
-
-  int accountCapacity = 100000;
 
 }
 
@@ -101,7 +102,7 @@ class Services extends Bank {
   }
 
   public void displayTotal() {
-    
+
     for (Map.Entry<Integer, LinkedHashMap<String, Integer>> entry : idBalanceMap.entrySet()) {
       int id = entry.getKey();
       sum = sum + getBalance(id);
@@ -120,7 +121,7 @@ class Services extends Bank {
       int id = entry.getKey();
       int balance = getBalance(id);
       String name = getName(id);
-      balance = (int) Math.round( balance * Math.pow((1 + rate), time) ); // compound interest
+      balance = (int) Math.round(balance * Math.pow((1 + rate), time)); // compound interest
       updateDetails(name, id, balance);
     }
 
@@ -219,63 +220,63 @@ public class App {
   }
 
   public void sessionStart() {
-      Account account = new Account();
-      System.out.println(account.welcomeMESSAGE);
-      System.out.println(account.sessionSTART);
-      while (true) {
-        System.out.println(
-            "\nEnter Choice:\n1.Display Balance:\n2.Withdraw:\n3.Deposit:\n4.Send:\n5.Create Account:\n6.Display Account Details:\n7.Display Total Assets:\n8.Go Next Year:\nAny Other Number: Exit");
-        int ch = sc.nextInt();
-        sc.nextLine();
-        int id;
-        switch (ch) {
+    Account account = new Account();
+    System.out.println(account.welcomeMESSAGE);
+    System.out.println(account.sessionSTART);
+    while (true) {
+      System.out.println(
+          "\nEnter Choice:\n1.Display Balance:\n2.Withdraw:\n3.Deposit:\n4.Send:\n5.Create Account:\n6.Display Account Details:\n7.Display Total Assets:\n8.Go Next Year:\nAny Other Number: Exit");
+      int ch = sc.nextInt();
+      sc.nextLine();
+      int id;
+      switch (ch) {
 
-        case 1:
-          id = reEnterId();
-          account.displayBalance(id);
-          break;
-        case 2:
-          id = reEnterId();
-          account.withdrawCash(id);
-          break;
-        case 3:
-          id = reEnterId();
+      case 1:
+        id = reEnterId();
+        account.displayBalance(id);
+        break;
+      case 2:
+        id = reEnterId();
+        account.withdrawCash(id);
+        break;
+      case 3:
+        id = reEnterId();
 
-          account.depositCash(id);
-          break;
-        case 4:
-          int recID;
-          System.out.println("\nSender ID : ");
-          id = reEnterId();
-          System.out.println("\nReceiver ID :");
-          recID = reEnterId();
-          account.send(id, recID);
-          break;
-        case 5:
-          System.out.println("Enter your name to open account : ");
-          String name = sc.nextLine();
-          System.out.println("Enter the balance you want to deposit : ");
-          int balance = sc.nextInt();
-          new Account(name, balance);
-          break;
-        case 6:
-          id = reEnterId();
-          account.displayDetails(id);
-          break;
-        case 7:
-          account.displayTotal();
-          break;
-        case 8:
-          account.nextYear();
-          break;
-        default:
+        account.depositCash(id);
+        break;
+      case 4:
+        int recID;
+        System.out.println("\nSender ID : ");
+        id = reEnterId();
+        System.out.println("\nReceiver ID :");
+        recID = reEnterId();
+        account.send(id, recID);
+        break;
+      case 5:
+        System.out.println("Enter your name to open account : ");
+        String name = sc.nextLine();
+        System.out.println("Enter the balance you want to deposit : ");
+        int balance = sc.nextInt();
+        new Account(name, balance);
+        break;
+      case 6:
+        id = reEnterId();
+        account.displayDetails(id);
+        break;
+      case 7:
+        account.displayTotal();
+        break;
+      case 8:
+        account.nextYear();
+        break;
+      default:
 
-          System.out.println(account.byeMESSAGE);
-          System.out.println(account.sessionCLOSE);
-          System.exit(12);
+        System.out.println(account.byeMESSAGE);
+        System.out.println(account.sessionCLOSE);
+        System.exit(12);
 
-        }
       }
+    }
 
   }
 
